@@ -1,17 +1,27 @@
 #!/bin/bash -x
-read -p "How many times Do you Want to flip the Coin:" times
-while [[ $count -lt times ]]
+Limit=21
+while [ true ]
 do
         num=$((RANDOM%2))
         if [[ $num -eq 0 ]]
         then
-                echo "Heads"
+		echo Heads
                 ((count_H++))
         else
-                echo "Tails"
+                echo Tails
                 ((count_T++))
         fi
-	((count++))
+        if [[ $count_H -eq $Limit ]]
+        then
+                echo -e "\nHeads have been reached 21 times"
+		echo "By" $(($Limit-$count_T))
+	        break
+        fi
+        if [[ $count_T -eq $Limit ]]
+        then
+                echo -e "\nTails have been reached 21 times"
+                echo "By" $(($Limit-$count_H))
+                break
+        fi
+	
 done
-echo -e "\nHeads have been Won $count_H times"
-echo -e "\nTails have been Won $count_T times"
